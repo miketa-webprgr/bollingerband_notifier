@@ -17,11 +17,17 @@
 /storage/*
 !/storage/.keep
 
-/node_modules
-/yarn-error.log
-
 /public/assets
 .byebug_history
+
+# Ignore webpacker files
+/node_modules
+/yarn-error.log
+/public/packs
+/public/packs-test
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
