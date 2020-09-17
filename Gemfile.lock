@@ -62,8 +62,6 @@ GEM
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.1)
-    autoprefixer-rails (10.0.0.1)
-      execjs
     backport (1.1.2)
     bcrypt (3.1.16)
     benchmark (0.1.0)
@@ -93,7 +91,6 @@ GEM
     debug_inspector (0.0.3)
     e2mmap (0.1.0)
     erubi (1.9.0)
-    execjs (2.7.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
@@ -116,8 +113,6 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     maruku (0.7.3)
-    materialize-sass (1.0.0)
-      autoprefixer-rails (>= 6.0.3)
     method_source (1.0.0)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
@@ -301,7 +296,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   jbuilder (~> 2.7)
   listen (~> 3.2)
-  materialize-sass
   pg
   pry-byebug
   pry-rails
