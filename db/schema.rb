@@ -10,16 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_091550) do
+ActiveRecord::Schema.define(version: 2020_09_20_132033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
-    t.string "symbol"
-    t.string "name"
+    t.string "symbol", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.datetime "date", null: false
+    t.float "close", null: false
+    t.float "high"
+    t.float "low"
+    t.integer "volume"
+    t.bigint "company_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_prices_on_company_id"
+    t.index ["date", "company_id"], name: "index_prices_on_date_and_company_id", unique: true
+  end
+
+  add_foreign_key "prices", "companies"
 end

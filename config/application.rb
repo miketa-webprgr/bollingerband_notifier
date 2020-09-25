@@ -15,5 +15,16 @@ module BollingerRailsApp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # generateコマンド時に生成されるファイルに制限をかける
+    config.generators do |g|
+      g.assets false # CSS, JSが自動生成されない
+      g.test_framework false # Minitestが自動生成されない
+    end
+
+    # タイムゾーンの設定
+    config.time_zone = 'Tokyo'
+    # デフォルトのロケールを日本に設定
+    config.i18n.default_locale = :ja
   end
 end

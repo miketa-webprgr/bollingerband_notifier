@@ -1,11 +1,19 @@
 p#notice = notice
 
-p
-  strong Symbol:
-  = @company.symbol
-p
-  strong Name:
-  = @company.name
+h2 = @company.symbol
+h5 = @company.name
+
+table.highlight.price
+  thead
+    tr
+      th 日付
+      th 終値
+      th HIGH
+      th LOW
+      th AVG
+      th σ
+    tbody
+      = render partial: 'prices/price', collection: @company.prices, as: :price
 
 => link_to 'Edit', edit_company_path(@company)
 '|
