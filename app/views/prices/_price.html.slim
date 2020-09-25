@@ -1,0 +1,7 @@
+tr
+  td = l price.date
+  td = price.close.round
+  td = price.too_old? ? '-' : price.upper_band.round
+  td = price.too_old? ? '-' : price.down_band.round
+  td = price.too_old? ? '-' : price.avg.round
+  td = price.too_old? ? '-' : price.sd.round(1)
