@@ -1,6 +1,4 @@
 class CompaniesController < ApplicationController
-  before_action :set_company, only: [:show, :destroy]
-
   # GET /companies
   def index
     @companies = Company.all
@@ -8,6 +6,16 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1
   def show
+    @company = Company.find(params[:id])
+    @company.prices.each do |price|
+      price.assign_attributes(
+        up_band: price.upper_band,
+        dn_band: price.down_band,
+        sd: price.standard_deviation,
+        avg: price.average,
+        too_old_flag: price.too_old?
+      )
+    end
   end
 
   # GET /companies/new
@@ -28,16 +36,12 @@ class CompaniesController < ApplicationController
 
   # DELETE /companies/1
   def destroy
+    @company = Company.find(params[:id])
     @company.destroy
     redirect_to companies_url, notice: 'Company was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_company
-      @company = Company.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def company_params
       params.require(:company).permit(:symbol, :name)

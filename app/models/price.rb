@@ -2,26 +2,28 @@ class Price < ApplicationRecord
   DEFAULT_DAYS = 10
   COEFFICIENT = 1.0
 
+  attr_accessor :up_band, :dn_band, :sd, :avg, :too_old_flag
+
   belongs_to :company
 
   validates :company_id, uniqueness: { scope: :date }
 
   def upper_band(days = DEFAULT_DAYS)
-    avg(days) + sd(days) * COEFFICIENT
+    average(days) + standard_deviation(days) * COEFFICIENT
   end
 
   def down_band(days = DEFAULT_DAYS)
-    avg(days) - sd(days) * COEFFICIENT
+    average(days) - standard_deviation(days) * COEFFICIENT
   end
 
-  def sd(days = DEFAULT_DAYS)
+  def standard_deviation(days = DEFAULT_DAYS)
     prices = last_xdays_close_prices(days)
-    average = avg(days)
+    average = average(days)
     variance = prices.sum { |price| (price - average)**2 } / prices.size
     Math.sqrt(variance)
   end
 
-  def avg(days = DEFAULT_DAYS)
+  def average(days = DEFAULT_DAYS)
     prices = last_xdays_close_prices(days)
     prices_sum = prices.sum
     prices_sum.to_f / prices.size
