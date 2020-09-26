@@ -30,7 +30,7 @@ class Price < ApplicationRecord
   end
 
   def too_old?(days = DEFAULT_DAYS)
-    company.prices.where('date <= ?', date).limit(days).count < days
+    @last_prices.size < days
   end
 
   private
@@ -40,7 +40,7 @@ class Price < ApplicationRecord
   end
 
   def last_xdays_price_objects(days)
-    company.prices.where('date >= ?', date).order(date: :asc).limit(days)
+    @last_prices = company.prices.where('date <= ?', date).order(date: :desc).limit(days)
   end
 
   # 標準偏差については、以下のサイトを参考にした
