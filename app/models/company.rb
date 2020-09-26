@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
   has_many :prices, dependent: :destroy
+  has_many :searches, dependent: :destroy
 
   after_create_commit :fetch_stock_api
 

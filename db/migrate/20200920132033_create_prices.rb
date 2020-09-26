@@ -6,9 +6,9 @@ class CreatePrices < ActiveRecord::Migration[6.0]
       t.float :high
       t.float :low
       t.integer :volume
-      t.references :company, foreign_key: true
+      t.references :company, null: false, foreign_key: true
 
-      t.index [:date, :company_id], unique: true
+      t.index %i[date company_id], unique: true
       t.timestamps
     end
   end

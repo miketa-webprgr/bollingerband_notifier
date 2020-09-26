@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_20_132033) do
+ActiveRecord::Schema.define(version: 2020_09_26_080555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,23 @@ ActiveRecord::Schema.define(version: 2020_09_20_132033) do
     t.float "high"
     t.float "low"
     t.integer "volume"
-    t.bigint "company_id"
+    t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["close"], name: "index_prices_on_close"
     t.index ["company_id"], name: "index_prices_on_company_id"
     t.index ["date", "company_id"], name: "index_prices_on_date_and_company_id", unique: true
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.float "sigma", default: 1.0, null: false
+    t.integer "mv_period", default: 10, null: false
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_searches_on_company_id"
+  end
+
   add_foreign_key "prices", "companies"
+  add_foreign_key "searches", "companies"
 end
