@@ -28,6 +28,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(company_params)
 
     if @company.save
+      @search = @company.create_search
       redirect_to @company, notice: 'Company was successfully created.'
     else
       render :new

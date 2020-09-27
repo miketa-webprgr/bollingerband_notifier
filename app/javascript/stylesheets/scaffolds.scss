@@ -87,3 +87,14 @@ div.actions {
 
 label {
   display: block; }
+
+.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 0px;
+}

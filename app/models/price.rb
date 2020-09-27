@@ -1,36 +1,33 @@
 class Price < ApplicationRecord
-  DEFAULT_DAYS = 10
-  COEFFICIENT = 1.0
-
   attr_accessor :up_band, :dn_band, :sd, :avg, :too_old_flag
 
   belongs_to :company
 
   validates :company_id, uniqueness: { scope: :date }
 
-  def upper_band(days = DEFAULT_DAYS)
-    average(days) + standard_deviation(days) * COEFFICIENT
+  def upper_band(days = company.search.mv_period)
+    average(days) + standard_deviation(days) * company.search.sigma
   end
 
-  def down_band(days = DEFAULT_DAYS)
-    average(days) - standard_deviation(days) * COEFFICIENT
+  def down_band(days = company.search.mv_period)
+    average(days) - standard_deviation(days) * company.search.sigma
   end
 
-  def standard_deviation(days = DEFAULT_DAYS)
+  def standard_deviation(days = company.search.mv_period)
     prices = last_xdays_close_prices(days)
     average = average(days)
     variance = prices.sum { |price| (price - average)**2 } / prices.size
     Math.sqrt(variance)
   end
 
-  def average(days = DEFAULT_DAYS)
+  def average(days = company.search.mv_period)
     prices = last_xdays_close_prices(days)
     prices_sum = prices.sum
     prices_sum.to_f / prices.size
   end
 
-  def too_old?(days = DEFAULT_DAYS)
-    company.prices.where('date <= ?', date).limit(days).count < days
+  def too_old?(days = company.search.mv_period)
+    @last_prices.size < days
   end
 
   private
@@ -40,7 +37,7 @@ class Price < ApplicationRecord
   end
 
   def last_xdays_price_objects(days)
-    company.prices.where('date >= ?', date).order(date: :asc).limit(days)
+    @last_prices = company.prices.where('date <= ?', date).order(date: :desc).limit(days)
   end
 
   # 標準偏差については、以下のサイトを参考にした
