@@ -1,2 +1,4 @@
 | document.getElementById('price_collection').innerHTML = "#{j render(partial: 'prices/price', collection: @company.prices, as: :price)}";
+| document.getElementById('label_sigma').innerHTML = "Bandの幅を選択（#{@company.search.sigma}σ）";
+| document.getElementById('label_mv_period').innerHTML = "AVGの範囲を選択（#{@company.search.mv_period}日）";
 | document.getElementById('sigma').innerHTML = "#{@company.search.sigma}σ";

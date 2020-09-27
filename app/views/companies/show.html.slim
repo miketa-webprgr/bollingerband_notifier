@@ -9,10 +9,10 @@ p#notice = notice
       = form_with model: [@company, @company.search], remote: true do |form|
         .input-field.col.s4.offset-s2
           = form.select :sigma, [["1.0σ", 1.0], ["2.0σ", 2.0], ["3.0σ", 3.0]]
-          label Bandの幅を選択
+          label#label_sigma Bandの幅を選択（#{@company.search.sigma}σ）
         .input-field.col.s4
           = form.select :mv_period, [["10日", 10], ["15日", 15], ["20日", 20], ["25日", 25], ["30日", 30]]
-          label AVG取得範囲を選択
+          label#label_mv_period AVGの範囲を選択（#{@company.search.mv_period}日）
         .input-field.col.s2
           = form.submit '送信', class: 'btn waves-effect waves-light', onclick: "M.toast({html: '更新中です', classes: 'rounded'})"
 
