@@ -1,4 +1,4 @@
-h1 Listing companies
+h1 登録株の一覧
 
 table.highlight
   thead
@@ -14,10 +14,5 @@ table.highlight
       tr
         td = company.symbol
         td = company.name
-        td = link_to 'Show', company
-        td = link_to 'Edit', edit_company_path(company)
-        td = link_to 'Destroy', company, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Company', new_company_path
+        td = link_to '詳細', company
+        td = link_to '削除', company, data: { confirm: '本当に削除してよろしいですか?' }, method: :delete

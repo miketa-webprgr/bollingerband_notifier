@@ -7,6 +7,11 @@ html
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   body
-    .container
-      = yield
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    head
+      = render 'shared/sidenav'
+    main
+      = render 'shared/navbar'
+      .row.content
+        .col.s10.offset-s1
+          = yield
+  = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'

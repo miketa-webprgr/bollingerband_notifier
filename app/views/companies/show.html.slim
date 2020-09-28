@@ -14,7 +14,7 @@ p#notice = notice
           = form.select :mv_period, [["10日", 10], ["15日", 15], ["20日", 20], ["25日", 25], ["30日", 30]]
           label#label_mv_period AVGの範囲を選択（#{@company.search.mv_period}日）
         .input-field.col.s2
-          = form.submit '送信', class: 'btn waves-effect waves-light', onclick: "M.toast({html: '更新中です', classes: 'rounded'})"
+          = form.submit '送信', class: 'btn waves-effect waves-light grey lighten-2', onclick: "M.toast({html: '更新中です', classes:'rounded red lighten-2'})"
 
 table.highlight.price
   thead
@@ -27,7 +27,3 @@ table.highlight.price
       th#sigma #{@company.search.sigma}σ
     tbody#price_collection
       = render partial: 'prices/price', collection: @company.prices, as: :price
-
-=> link_to 'Edit', edit_company_path(@company)
-'|
-=< link_to 'Back', companies_path

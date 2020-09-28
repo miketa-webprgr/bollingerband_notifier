@@ -1,0 +1,25 @@
+ul#slide-out.sidenav.sidenav-fixed.z-depth-3
+  li
+    .user-view
+      .background
+        = image_tag "background.jpg", size: '300x190'
+      a href="#user" 
+        = image_tag "miketa.png", class: "circle"
+      span.white-text.name Miketa
+      span.white-text.email miketa@gmail.com
+  li
+    a.subheader 株に関すること
+  li
+    = link_to companies_path, class: 'waves-effect waves-red' do
+      i.material-icons cloud
+      | 登録株の一覧
+  li
+    = link_to new_company_path, class: 'waves-effect waves-red' do
+      i.material-icons cloud
+      | 新しい株の登録
+  li
+    a.subheader 通知に関すること
+  li
+    a.waves-effect.waves-red href="#!"
+      i.material-icons cloud
+      | メール通知設定
