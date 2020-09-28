@@ -33,11 +33,7 @@ class Price < ApplicationRecord
   private
 
   def last_xdays_close_prices(days)
-    last_xdays_price_objects(days).pluck(:close)
-  end
-
-  def last_xdays_price_objects(days)
-    @last_prices = company.prices.where('date <= ?', date).order(date: :desc).limit(days)
+    @last_prices = company.prices.where('date <= ?', date).order(date: :desc).limit(days).pluck(:close)
   end
 
   # 標準偏差については、以下のサイトを参考にした
