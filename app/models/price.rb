@@ -6,21 +6,21 @@ class Price < ApplicationRecord
   validates :company_id, uniqueness: { scope: :date }
 
   def upper_band(days = company.search.mv_period)
-    average(days) + standard_deviation(days) * company.search.sigma
+    average_price(days) + standard_deviation(days) * company.search.sigma
   end
 
   def down_band(days = company.search.mv_period)
-    average(days) - standard_deviation(days) * company.search.sigma
+    average_price(days) - standard_deviation(days) * company.search.sigma
   end
 
   def standard_deviation(days = company.search.mv_period)
     prices = last_xdays_close_prices(days)
-    average = average(days)
-    variance = prices.sum { |price| (price - average)**2 } / prices.size
+    average_price = average_price(days)
+    variance = prices.sum { |price| (price - average_price)**2 } / prices.size
     Math.sqrt(variance)
   end
 
-  def average(days = company.search.mv_period)
+  def average_price(days = company.search.mv_period)
     prices = last_xdays_close_prices(days)
     prices_sum = prices.sum
     prices_sum.to_f / prices.size

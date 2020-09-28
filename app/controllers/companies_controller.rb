@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
         up_band: price.upper_band,
         dn_band: price.down_band,
         sd: price.standard_deviation,
-        avg: price.average,
+        avg: price.average_price,
         too_old_flag: price.too_old?
       )
     end
